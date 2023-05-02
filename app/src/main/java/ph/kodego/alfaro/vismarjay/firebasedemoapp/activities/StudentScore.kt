@@ -1,0 +1,94 @@
+package ph.kodego.alfaro.vismarjay.firebasedemoapp.activities
+
+import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.view.View
+import android.widget.Toast
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import ph.kodego.alfaro.vismarjay.firebasedemoapp.adapter.MidActAdapter
+import ph.kodego.alfaro.vismarjay.firebasedemoapp.databinding.ActivityStudentScoreBinding
+import ph.kodego.alfaro.vismarjay.firebasedemoapp.models.ActivityListModel
+import ph.kodego.alfaro.vismarjay.firebasedemoapp.models.EnrolledStudentModel
+
+class StudentScore : AppCompatActivity() {
+
+    private lateinit var binding:ActivityStudentScoreBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityStudentScoreBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        val lastName = intent.getStringExtra("LASTNAME")
+        val firsName = intent.getStringExtra("FIRSTNAME")
+        val scoreTotal = intent.getStringExtra("SCORE_TOTAL").toString()
+        val activityTitle = intent.getStringExtra("ACTIVITY_TITLE").toString()
+        val activityId = intent.getStringExtra("ACTIVITYID")
+        val studentId = intent.getStringExtra("STUDENT_ID")
+        val courseId = intent.getStringExtra("COURSE_ID")
+        val userId = intent.getStringExtra("USER_ID").toString()
+        val database = FirebaseDatabase.getInstance()
+        val enstudentRef = database.getReference("users")
+            .child(userId)
+            .child("courses")
+            .child(courseId!!)
+            .child("students")
+            .child(studentId!!)
+            .child("midtermActivities")
+            .child(activityId!!)
+        val studentRef = database.getReference("Students")
+            .child(studentId!!)
+            .child("coursesEnrolled")
+            .child(courseId!!)
+            .child("midtermActivities")
+            .child(activityId!!)
+
+        binding.studName.text = "$firsName $lastName"
+        binding.PI.text = activityTitle
+        binding.PITotal.text = scoreTotal
+
+        binding.btnSave.setOnClickListener{
+
+            val score = binding.studScore.text.toString()
+
+            if (score.isEmpty()) {
+                binding.studScore.error = "Please enter Course Description"
+                return@setOnClickListener
+            }
+
+            val actScoreDetail = ActivityListModel(activityTitle,scoreTotal.toInt(),activityId,score.toInt())
+            enstudentRef.setValue(actScoreDetail)
+                .addOnCompleteListener {
+                    Toast.makeText(this, "$score out ot $scoreTotal", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Inserted successfully", Toast.LENGTH_SHORT).show()
+                    binding.studScore.text.clear()
+
+                }.addOnFailureListener { err ->
+                    Toast.makeText(this, "Error ${err.message}", Toast.LENGTH_SHORT).show()
+
+                }
+
+            studentRef.setValue(actScoreDetail)
+
+
+        }
+
+        enstudentRef.child("score").addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val score = dataSnapshot.getValue(Int::class.java) ?: 0
+                binding.PIScore.text = "Score: $score"
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Handle the error case
+                // For example, you can log the error or show an error message to the user
+                error.toException().printStackTrace()
+            }
+        })
+
+    }
+}

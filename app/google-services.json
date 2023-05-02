@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1039617921758",
+    "project_id": "fir-demo-app-c57a6",
+    "storage_bucket": "fir-demo-app-c57a6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1039617921758:android:8ba6b5bf14c14061c3a84f",
+        "android_client_info": {
+          "package_name": "ph.kodego.alfaro.vismarjay.firebasedemoapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1039617921758-2oke5udkoqpviqisftji5bgt0753trbn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAXM0pNpRS1qqkilG5VhKAh6iQZ0MVnpM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1039617921758-2oke5udkoqpviqisftji5bgt0753trbn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

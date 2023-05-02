@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="16dp"
+    android:elevation="8dp"
+    app:cardCornerRadius="8dp"
+    android:layout_margin="8dp"
+    android:backgroundTint="@color/lavender">
+    
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableRow>
+            <TextView
+                android:text="Last Name"
+                android:id="@+id/stud_lastname"
+                android:padding="5dp"/>
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:text="FirstName"
+                android:id="@+id/stud_firstname"
+                android:padding="5dp"/>
+            <EditText
+                android:id="@+id/stud_act1_score"
+                android:inputType="number"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="5dp"/>
+            <EditText
+                android:id="@+id/stud_act2_score"
+                android:inputType="number"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:padding="5dp"/>
+            <EditText
+                android:id="@+id/stud_act3_score"
+                android:inputType="number"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="5dp"/>
+            <EditText
+                android:id="@+id/stud_act4_score"
+                android:inputType="number"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="5dp"/>
+            <EditText
+                android:id="@+id/stud_act5_score"
+                android:inputType="number"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:padding="5dp"/>
+            <EditText
+                android:id="@+id/stud_act6_score"
+                android:inputType="number"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:padding="5dp"/>
+            <EditText
+                android:id="@+id/stud_act7_score"
+                android:inputType="number"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:padding="5dp"/>
+            <EditText
+                android:id="@+id/stud_act8_score"
+                android:inputType="number"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:padding="5dp"/>
+            <EditText
+                android:id="@+id/stud_act9_score"
+                android:inputType="number"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:padding="5dp"/>
+            <EditText
+                android:id="@+id/stud_act10_score"
+                android:inputType="number"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="5dp"/>
+            <TextView
+                android:id="@+id/stud_act_total"
+                android:text="0"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="5dp"/>
+
+        </TableRow>
+
+    </TableLayout>
+
+</androidx.cardview.widget.CardView>
