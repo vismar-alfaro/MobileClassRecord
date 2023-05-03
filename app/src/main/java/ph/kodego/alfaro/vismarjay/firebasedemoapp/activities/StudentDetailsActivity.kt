@@ -309,13 +309,15 @@ class StudentDetailsActivity : AppCompatActivity() {
             val result = (data1!! * 0.1) + (data2!! * 0.4) + (data3!! * 0.3) + (data4!! * 0.2)
             Log.i("StudentDetailsActivity","Act = $data1,Quiz = $data2, Exam = $data3, Pit=$data4")
             if(result>=0.7){
-                resultAve = (23/3)-((20/3)*result)
+                Log.i("StudentDetailsActivity","Result = $result")
+                resultAve = (23.0/3.0)-((20.0/3.0)*result)
+                Log.i("StudentDetailsActivity","Result = $resultAve")
                 val gradeRate = rating(resultAve)
                 binding.tvMidRating.text = gradeRate.toString()
                 gradeRef.child("midtermGrade").setValue(gradeRate)
 
             }else{
-                resultAve = 5-((20/7)*result)
+                resultAve = 5.0-((20.0/7.0)*result)
                 rating(resultAve)
                 val gradeRate = rating(resultAve)
                 binding.tvMidRating.text = gradeRate.toString()
@@ -331,13 +333,13 @@ class StudentDetailsActivity : AppCompatActivity() {
         if(finData1 != null && finData2 != null && finData3 != null && finData4 != null){
             val result = (finData1!! * 0.1) + (finData2!! * 0.4) + (finData3!! * 0.3) + (finData4!! * 0.2)
             if(result>=0.7){
-                resultAve = (23/3)-((20/3)*result)
+                resultAve = (23.0/3.0)-((20.0/3.0)*result)
                 val gradeRate = rating(resultAve)
                 binding.tvFinRating.text = gradeRate.toString()
                 gradeRef.child("finalGrade").setValue(gradeRate)
 
             }else{
-                resultAve = 5-((20/7)*result)
+                resultAve = 5.0-((20.0/7.0)*result)
                 rating(resultAve)
                 val gradeRate = rating(resultAve)
                 binding.tvFinRating.text = gradeRate.toString()
@@ -350,7 +352,7 @@ class StudentDetailsActivity : AppCompatActivity() {
 
 
     private fun rating(resultAve:Double):Double{
-
+        Log.i("StudentDetailsActivity","$resultAve")
         return when{
             resultAve <= 1.124 -> 1.0
             resultAve <= 1.374 -> 1.25

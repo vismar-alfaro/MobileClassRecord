@@ -168,7 +168,6 @@ class MidExamActivity : AppCompatActivity(), MidExamAdapter.onItemClickListener 
                     etPiTotal.text.toString().toInt(),
                     courseId
                 )
-                Toast.makeText(applicationContext,"$etPiTitle added", Toast.LENGTH_LONG).show()
 
                 alertDialog.dismiss()
             }

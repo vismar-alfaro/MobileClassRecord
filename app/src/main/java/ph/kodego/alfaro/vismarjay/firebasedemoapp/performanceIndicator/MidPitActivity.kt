@@ -171,7 +171,6 @@ class MidPitActivity : AppCompatActivity(), MidPitAdapter.onItemClickListener {
                     etPiTotal.text.toString().toInt(),
                     courseId
                 )
-                Toast.makeText(applicationContext,"$etPiTitle added", Toast.LENGTH_LONG).show()
 
                 alertDialog.dismiss()
             }

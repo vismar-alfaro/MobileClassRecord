@@ -11,10 +11,13 @@ import android.view.MenuInflater
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.R
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import ph.kodego.alfaro.vismarjay.firebasedemoapp.adapter.CourseAdapter
@@ -34,6 +37,7 @@ class DashboardActivity : AppCompatActivity(), CourseAdapter.onItemClickListener
         binding = ActivityDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         auth = FirebaseAuth.getInstance()
 
         val currentUser = auth.currentUser
@@ -46,6 +50,11 @@ class DashboardActivity : AppCompatActivity(), CourseAdapter.onItemClickListener
         tvLoadingData = binding.tvLoadingData
 
         courseList = arrayListOf<CourseModel>()
+
+        binding.aboutImg.setOnClickListener{
+            val intent = Intent(this,AboutActivity::class.java)
+            startActivity(intent)
+        }
 
 
         if (userRef != null) {

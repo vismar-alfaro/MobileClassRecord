@@ -50,7 +50,7 @@
                 android:background="@drawable/lavander_border"
                 android:layout_marginTop="20dp"
                 android:padding="16dp"
-                android:hint="Enter Program"
+                android:hint="Enter Program Yr and Sec."
                 android:gravity="start|center_vertical"
                 android:textColor="@color/lavender"/>
             <EditText

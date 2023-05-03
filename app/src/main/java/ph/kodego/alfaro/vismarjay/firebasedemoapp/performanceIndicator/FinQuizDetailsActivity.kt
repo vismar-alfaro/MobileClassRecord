@@ -138,8 +138,6 @@ class FinQuizDetailsActivity : AppCompatActivity(), FinQuizListAdapter.onItemCli
                     etPiId.text.toString(),
                     etPiTotal.text.toString().toInt()
                 )
-                Toast.makeText(applicationContext,"$etPiTitle added", Toast.LENGTH_LONG).show()
-
                 alertDialog.dismiss()
             }
 
