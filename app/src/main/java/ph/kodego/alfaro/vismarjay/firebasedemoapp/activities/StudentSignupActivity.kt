@@ -135,8 +135,6 @@ class StudentSignupActivity : AppCompatActivity() {
                         userRef.child(it.uid).child("program").setValue(program)
                     }
 
-                    studentRef.child(studentId).child("studentData").setValue(studentData)
-
                     val intent = Intent(this, StudentDashboardActivity::class.java).apply {
                         putExtra("STUDENT_ID",studentId)
                     }

@@ -274,13 +274,32 @@ class StudentDetailsActivity : AppCompatActivity() {
                 binding.finPitScore.text = "${score?:0}/${scoreTotal?:0}"
                 gradeRef.child("finPitTotalScore").setValue(scoreTotal?:0)
                 gradeRef.child("finPitScore").setValue(score?:0)
-
                 calculateResultFin(gradeRef)
+
             }
 
             override fun onCancelled(error: DatabaseError) {
             }
         })
+
+        gradeRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val midtermGrade = snapshot.child("midtermGrade").getValue(Int::class.java)?:0.0
+                val finalGrade = snapshot.child("finalGrade").getValue(Int::class.java)?:0.0
+
+                val semRating = (midtermGrade.toDouble()*0.5)+(finalGrade.toDouble()*0.5)
+                gradeRef.child("semRating").setValue(semRating?:0)
+
+                binding.tvSemRating.text = "$semRating"
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+
+
+
 
     }
 

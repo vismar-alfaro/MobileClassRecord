@@ -3,12 +3,15 @@ package ph.kodego.alfaro.vismarjay.firebasedemoapp.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import ph.kodego.alfaro.vismarjay.firebasedemoapp.R
 import ph.kodego.alfaro.vismarjay.firebasedemoapp.databinding.ActivityCourseDetailsBinding
 import ph.kodego.alfaro.vismarjay.firebasedemoapp.performanceIndicator.*
 
 class CourseDetailsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCourseDetailsBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +28,8 @@ class CourseDetailsActivity : AppCompatActivity() {
 
         binding.courseTitle.text = courseDesc
         binding.program.text = program
+
+
 
         binding.cvStudent.setOnClickListener{
             val intent = Intent(this,EnrolledStudentsActivity::class.java).apply{

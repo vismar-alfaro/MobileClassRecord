@@ -94,7 +94,7 @@ class EnrollStudentActivity : AppCompatActivity() {
 
                 }
         }
-        studentRef.child(studentId).setValue(student)
+        studentRef.child(studentId).child("studentId").setValue(studentId)
             ?.addOnCompleteListener {
                 Toast.makeText(this, "${firstName + lastName} inserted successfully", Toast.LENGTH_SHORT).show()
 
@@ -107,6 +107,10 @@ class EnrollStudentActivity : AppCompatActivity() {
                 Toast.makeText(this, "Error ${err.message}", Toast.LENGTH_SHORT).show()
 
             }
+
+        studentRef.child(studentId).child("lastName").setValue(lastName)
+        studentRef.child(studentId).child("firstName").setValue(firstName)
+        studentRef.child(studentId).child("program").setValue(program)
 
         courseId?.let { studentRef.child(studentId).child("coursesEnrolled").child(it)
             .child("courseId").setValue(courseId)}

@@ -2,6 +2,7 @@ package ph.kodego.alfaro.vismarjay.firebasedemoapp.activities
 
 import android.annotation.SuppressLint
 import android.content.ContentValues
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -32,6 +33,39 @@ class StudentCourseActivity : AppCompatActivity() {
         val studentId = intent.getStringExtra("STUDENT_ID")
         val studentRef = db.getReference("Students").child(studentId.toString())
         val studentCourseRef = studentRef.child("coursesEnrolled").child(courseId.toString())
+
+        binding.cvMidActivities.setOnClickListener{
+            val intent = Intent(this,StudentActivitiesActivity::class.java).apply{
+                putExtra("STUDENT_ID",studentId)
+                putExtra("COURSE_ID",courseId)
+            }
+            startActivity(intent)
+        }
+
+        binding.cvFinActivities.setOnClickListener{
+            val intent = Intent(this,StudentFinActivitiesActivity::class.java).apply{
+                putExtra("STUDENT_ID",studentId)
+                putExtra("COURSE_ID",courseId)
+            }
+            startActivity(intent)
+        }
+
+        binding.cvMidQuiz.setOnClickListener{
+            val intent = Intent(this,StudentMidQuizActivity::class.java).apply{
+                putExtra("STUDENT_ID",studentId)
+                putExtra("COURSE_ID",courseId)
+            }
+            startActivity(intent)
+        }
+
+        binding.cvFinQuiz.setOnClickListener{
+            val intent = Intent(this,StudentFinQuizActivity::class.java).apply{
+                putExtra("STUDENT_ID",studentId)
+                putExtra("COURSE_ID",courseId)
+            }
+            startActivity(intent)
+        }
+
 
         studentRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -82,19 +116,21 @@ class StudentCourseActivity : AppCompatActivity() {
                 val finPitScore = dataSnapshot.child("finPitScore").value.toString()
                 val finPitTotalScore =
                     dataSnapshot.child("finPitTotalScore").value.toString()
-                val midtermGrade = dataSnapshot.child("midtermGrade").value.toString().toDouble()
+                val midtermGrade = dataSnapshot.child("midtermGrade").value ?: 0.0
                 val finalGrade = dataSnapshot.child("finalGrade").value ?: 0.0
+                val semRating = dataSnapshot.child("semRating").value ?: 0.0
 
                 binding.midActScore.text = "$midActScore/$midActTotalScore"
                 binding.midQuizScore.text = "$midQuizScore/$midQuizTotalScore"
                 binding.midExamScore.text = "$midExamScore/$midExamTotalScore"
                 binding.midPitScore.text = "$midPitScore/$midPitTotalScore"
-                binding.tvMidRating.text = "$midtermGrade"
+                binding.tvMidRating.text = "${midtermGrade.toString().toDouble()}"
                 binding.finActScore.text = "$finActScore/$finActTotalScore"
                 binding.finQuizScore.text = "$finQuizScore/$finQuizTotalScore"
                 binding.finExamScore.text = "$finExamScore/$finExamTotalScore"
                 binding.finPitScore.text = "$finPitScore/$finPitTotalScore"
-                binding.tvFinRating.text = "$finalGrade"
+                binding.tvFinRating.text = "${finalGrade.toString().toDouble()}"
+                binding.tvSemRating.text = "${semRating.toString().toDouble()}"
 
 
 
