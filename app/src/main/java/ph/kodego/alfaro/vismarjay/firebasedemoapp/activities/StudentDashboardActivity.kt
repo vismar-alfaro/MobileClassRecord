@@ -49,6 +49,14 @@ class StudentDashboardActivity : AppCompatActivity(), StudentCourseAdapter.onIte
 
         courseList = arrayListOf<CourseModel>()
 
+        binding.studentDashboardAboutimg.setOnClickListener{
+            val intent = Intent(this,AboutActivity::class.java)
+            startActivity(intent)
+        }
+
+
+
+
 
         if (userRef != null) {
             userRef.addValueEventListener(object : ValueEventListener {
@@ -70,14 +78,27 @@ class StudentDashboardActivity : AppCompatActivity(), StudentCourseAdapter.onIte
                             .into(binding.profilePic)
 
                         getCourseData(studentId?:"")
+                        goToEditProfile(studentId?:"")
+
 
                     }
+
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {
                     Log.e(ContentValues.TAG, "onCancelled", databaseError.toException())
                 }
             })
+        }
+
+    }
+
+    fun goToEditProfile(studentId:String){
+        binding.studentEditProfile.setOnClickListener{
+            val intent = Intent(this,StudentEditProfile::class.java).apply {
+                putExtra("STUDENT_ID",studentId)
+            }
+            startActivity(intent)
         }
 
     }

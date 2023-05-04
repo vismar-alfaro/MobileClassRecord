@@ -2,10 +2,10 @@ package ph.kodego.alfaro.vismarjay.firebasedemoapp.activities
 
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -14,47 +14,43 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import ph.kodego.alfaro.vismarjay.firebasedemoapp.R
-import ph.kodego.alfaro.vismarjay.firebasedemoapp.databinding.ActivitySignupBinding
+import ph.kodego.alfaro.vismarjay.firebasedemoapp.databinding.ActivityEditProfileBinding
 import java.util.*
 
-class SignupActivity : AppCompatActivity() {
+class StudentEditProfile : AppCompatActivity() {
 
-    private lateinit var binding: ActivitySignupBinding
+    private lateinit var binding: ActivityEditProfileBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
     private lateinit var userRef: DatabaseReference
+    private lateinit var studentRef: DatabaseReference
     private val PICK_IMAGE_REQUEST = 1
-    private val REQUEST_IMAGE_CAPTURE = 2
     private var filePath: Uri? = null
     private val storage = FirebaseStorage.getInstance().reference
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySignupBinding.inflate(layoutInflater)
+        binding = ActivityEditProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         FirebaseApp.initializeApp(this)
         database = Firebase.database
         userRef = database.getReference("users")
+        studentRef = database.getReference("Students")
         auth = Firebase.auth
 
-
-        binding.tvLogin.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.buttonSignup.setOnClickListener {
-            performSignUp()
-        }
+        val studentId = intent.getStringExtra("STUDENT_ID")
 
         binding.btnUploadimg.setOnClickListener {
             val intent = Intent()
             intent.type = "image/*"
             intent.action = Intent.ACTION_GET_CONTENT
             startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE_REQUEST)
+        }
+
+        binding.buttonSave.setOnClickListener {
+            performSave(studentId?:"")
         }
 
 
@@ -70,7 +66,7 @@ class SignupActivity : AppCompatActivity() {
         }
     }
 
-    private fun uploadImage() {
+    private fun uploadImage(studentId: String) {
         if (filePath != null) {
             val ref = storage.child("images/${UUID.randomUUID()}")
 
@@ -83,6 +79,8 @@ class SignupActivity : AppCompatActivity() {
                     auth.currentUser?.let { it1 ->
                         userRef.child(it1.uid).child("profile").setValue(uri.toString())
                     }
+
+                    studentRef.child(studentId).child("profile").setValue(uri.toString())
                 }
             }.addOnFailureListener {
                 Toast.makeText(this, "Image upload failed", Toast.LENGTH_SHORT).show()
@@ -90,51 +88,24 @@ class SignupActivity : AppCompatActivity() {
         }
     }
 
-    private fun performSignUp() {
-        val username = binding.etUsername.text.toString().trim()
-        val password = binding.etPassword.text.toString().trim()
-        val confirmPassword = binding.etConfirmPassword.text.toString().trim()
+    private fun performSave(studentId: String) {
         val firstName = binding.etFirstName.text.toString().trim()
         val lastName = binding.etLastName.text.toString().trim()
 
-        if (username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()||firstName.isEmpty()
-            ||lastName.isEmpty()) {
-            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
-            return
+        auth.currentUser?.let {
+            userRef.child(it.uid).child("firstName").setValue(firstName)
         }
-        if (password != confirmPassword) {
-            binding.etConfirmPassword.error = "Passwords do not match, please try again"
-            return
+        auth.currentUser?.let {
+            userRef.child(it.uid).child("lastName").setValue(lastName)
         }
-        auth.createUserWithEmailAndPassword(username, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
 
-                    auth.currentUser?.let {
-                        userRef.child(it.uid).child("firstName").setValue(firstName)
-                    }
-                    auth.currentUser?.let {
-                        userRef.child(it.uid).child("lastName").setValue(lastName)
-                    }
-                    auth.currentUser?.let { userRef.child(it.uid).child("id").setValue(it.uid) }
-                    auth.currentUser?.let {
-                        userRef.child(it.uid).child("email").setValue(it.email)
-                    }
+        val intent = Intent(this, StudentDashboardActivity::class.java).apply {
+        }
+        uploadImage(studentId)
+        startActivity(intent)
 
-                    auth.currentUser?.let {
-                        userRef.child(it.uid).child("role").setValue("Instructor")
-                    }
-                    val intent = Intent(this, DashboardActivity::class.java)
-                    uploadImage()
-                    startActivity(intent)
-
-                    Toast.makeText(this, "Registration successful", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(
-                        this, "Authentication failed: ${task.exception?.localizedMessage}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
+        Toast.makeText(this, "Profile Save successful", Toast.LENGTH_SHORT).show()
     }
+
+
 }

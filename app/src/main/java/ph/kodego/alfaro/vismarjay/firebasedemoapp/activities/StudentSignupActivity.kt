@@ -34,6 +34,7 @@ class StudentSignupActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityStudentSignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         FirebaseApp.initializeApp(this)
         database = Firebase.database
         userRef = database.getReference("users")
@@ -50,7 +51,7 @@ class StudentSignupActivity : AppCompatActivity() {
             performSignUp()
         }
 
-        binding.userImageView.setOnClickListener {
+        binding.btnUploadimg.setOnClickListener {
             val intent = Intent()
             intent.type = "image/*"
             intent.action = Intent.ACTION_GET_CONTENT

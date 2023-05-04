@@ -41,6 +41,21 @@
                 android:background="@drawable/ic_user"
                 android:scaleType="centerCrop"/>
 
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_uploadimg"
+                style="@android:style/Widget.Button"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/button_background"
+                android:gravity="center"
+                android:text="Upload Image"
+                android:textColor="#ffffff"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"

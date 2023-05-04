@@ -56,6 +56,11 @@ class DashboardActivity : AppCompatActivity(), CourseAdapter.onItemClickListener
             startActivity(intent)
         }
 
+        binding.btnEditProfile.setOnClickListener{
+            val intent = Intent(this,EditProfileActivity::class.java)
+            startActivity(intent)
+        }
+
 
         if (userRef != null) {
             userRef.addValueEventListener(object : ValueEventListener {
