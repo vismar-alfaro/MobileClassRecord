@@ -32,7 +32,10 @@ class LoginActivity : AppCompatActivity() {
         auth = Firebase.auth
 
         binding.tvSignup.setOnClickListener{
-            performSignup()
+//            performSignup()
+            val intent = Intent(this,AppCodeActivity::class.java)
+            startActivity(intent)
+
         }
 
         binding.buttonLogin.setOnClickListener{

@@ -2,18 +2,19 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="140dp"
+    android:layout_height="130dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardElevation="8dp"
     app:cardCornerRadius="8dp"
     android:layout_margin="8dp"
-    android:backgroundTint="@color/lavender">
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="5dp">
+        android:padding="5dp"
+        android:background="@drawable/lavender_gradient">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -57,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:text="MW"
                 android:id="@+id/weekly_schedule"
-                android:textColor="#340568"
+                android:textColor="#F8F6FA"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:layout_marginEnd="8dp" />
@@ -69,7 +70,7 @@
                 android:id="@+id/time_schedule"
                 android:layout_marginEnd="5dp"
                 android:layout_marginStart="5dp"
-                android:textColor="#340568"
+                android:textColor="#EEECF1"
                 android:textSize="12sp"
                 android:textStyle="bold"/>
 
@@ -80,22 +81,23 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
                 android:id="@+id/room_assignment"
-                android:textColor="#340568"
+                android:textColor="#E0DDE4"
                 android:textSize="12sp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:text="Instructor:FirstName LastName"
-                android:layout_marginStart="5dp"
-                android:id="@+id/instructor"
-                android:textColor="#340568"
-                android:textSize="12sp"
-                android:layout_weight="1"
                 android:textStyle="bold"/>
 
         </LinearLayout>
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Instructor:FirstName LastName"
+            android:layout_marginStart="5dp"
+            android:id="@+id/instructor"
+            android:textColor="#F2EFF4"
+            android:textSize="12sp"
+            android:layout_weight="1"
+            android:textStyle="bold"/>
+
 
     </LinearLayout>
 
